@@ -17,7 +17,17 @@
     <context:component-scan base-package="com.dao"/>
     <context:component-scan base-package="com.service"/>
     <context:component-scan base-package="com.utility"/>
+
+     <!--
+     note: use this style if you don't use annotations
+     
+     
+    <bean id = "userDao" class = "com.dao.UserDao"/>    
+    <bean id = "userService" class = "com.service.UserService"
+        p:userDao-ref="userDao"
+    /> -->
     
+            
     <!--
     <bean id="propertyConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
@@ -32,11 +42,5 @@
     -->
 
     <!-- ADD PERSISTENCE SUPPORT HERE (jpa, hibernate, etc) -->
-<!--
-    <bean id = "userDao" class = "com.dao.UserDao"/>    
-    <bean id = "userService" class = "com.service.UserService"
-        p:userDao-ref="userDao"
-    /> -->
-
 
 </beans>
