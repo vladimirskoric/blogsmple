@@ -8,6 +8,7 @@ package com.controller;
 
 import com.service.UserService;
 import java.sql.SQLException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,9 +21,11 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 
 @Controller
+@RequestMapping(value="/login", method=RequestMethod.POST)
 public class LoginController {
     
-    private final UserService _service = new UserService();
+    @Autowired
+    private UserService userService;
     
     @RequestMapping(value="/verify", method=RequestMethod.POST)
     public String verify(
@@ -31,7 +34,7 @@ public class LoginController {
         Model model
     ) throws SQLException   
     {
-        boolean valid = _service.isValidUser(username, password);        
+        boolean valid = userService.isValidUser(username, password);        
         String message = valid? "Welcome " + username : "Invalid log-in";
         model.addAttribute("message",message);
         return "welcome";

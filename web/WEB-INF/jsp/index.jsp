@@ -9,6 +9,6 @@
     </head>
 
     <body>
-        <a href ="login.htm">Log-in</a>
+        <a href ="login/login.htm">Log-in</a>
     </body>
 </html>

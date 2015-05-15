@@ -5,28 +5,30 @@
  */
 package com.dao;
 
-import com.model.User;
-import com.utility.DBUtility;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import sqlexpression.DatabaseManager;
 import sqlexpression.OperationEnum;
 import sqlexpression.SelectExpression;
-import sqlexpression.SqlDriver;
 import sqlexpression.SqlExpressionException;
+import com.model.User;
+import com.utility.DBUtility;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author ryuzaki
  */
+@Repository
 public class UserDao {
+    
+    @Autowired
+    private DBUtility dbUtil;
     
     public Iterable<User> getUsers() throws SqlExpressionException, SQLException
     {
-        SelectExpression exp = new SelectExpression(DBUtility.getConnection(),"LOGIN");
+        SelectExpression exp = new SelectExpression(dbUtil.getConnection(),"LOGIN");
         ResultSet result = exp.execute();
         
         ArrayList<User> users = new ArrayList<>();
@@ -43,7 +45,7 @@ public class UserDao {
     
     public boolean isValidUser(String username, String password) throws SqlExpressionException, SQLException
     {
-        SelectExpression exp = new SelectExpression(DBUtility.getConnection(),"LOGIN");
+        SelectExpression exp = new SelectExpression(dbUtil.getConnection(),"LOGIN");
         exp.where("USERNAME", OperationEnum.Equal, username);
         exp.where("PASSWORD", OperationEnum.Equal, password);
         ResultSet result =exp.execute();

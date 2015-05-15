@@ -9,6 +9,8 @@ package com.service;
 import com.model.User;
 import com.dao.UserDao;
 import java.sql.SQLException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 
 import sqlexpression.*;
@@ -17,22 +19,34 @@ import sqlexpression.*;
  *
  * @author vladimir
  */
+
+@Service
 public class UserService {
  
+    @Autowired(required = true)
     private UserDao userDao;
-    
-    public UserService()
-    {
-      userDao = new UserDao();
-    }
-    
+        
     public boolean isValidUser(String username, String password) throws SqlExpressionException, SQLException
     {
-        return userDao.isValidUser(username, password);
+        return getUserDao().isValidUser(username, password);
     }
     
     public Iterable<User> getUsers() throws SqlExpressionException, SQLException
     {
-        return userDao.getUsers();
+        return getUserDao().getUsers();
+    }
+
+    /**
+     * @return the userDao
+     */
+    public UserDao getUserDao() {
+        return userDao;
+    }
+
+    /**
+     * @param userDao the userDao to set
+     */
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
     }
 }
